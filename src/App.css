@@ -1,0 +1,123 @@
+body {
+  background: #e9edf996;
+}
+
+.App {
+  margin: auto;
+  color: #92a4b1;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Hero-Card,
+.Episode-Card {
+  width: 500px;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: start;
+  margin: 10px;
+  padding: 30px;
+  background: #29343d;
+  box-shadow: inset 0 0 15px rgb(35%, 45%, 50%, 0.5);;
+  border-radius: 2px;
+}
+
+.Hero-Card img {
+  height: 60px;
+  width: 60px;
+}
+
+.Pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 560px;
+  margin: auto;
+}
+
+.Pagination-list {
+  list-style: none;
+  display: flex;
+  padding-left: 0;
+}
+
+.Home-page {
+  height: 100vh;
+  margin: auto;
+  text-align: center;
+  color: #8529d5;
+}
+
+.Home-page img {
+  height: 500px;
+  width: 500;
+}
+
+.Main-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 1vh;
+}
+
+.Navigation {
+  padding: 10px;
+}
+
+.Hero {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #abded7;
+  text-align: center;
+}
+
+.Nav-item {
+  padding: 10px;
+  font-weight: 600;
+  color: #abded7;
+  text-decoration: none;
+}
+
+.Nav-item:hover,
+.Nav-item:focus,
+.active {
+  color: #16e6ca;
+}
+
