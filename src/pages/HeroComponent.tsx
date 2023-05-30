@@ -3,23 +3,12 @@ import { useState, useEffect } from "react";
 import EnhancedTable from "../components/HeroesListTable";
 import SkeletonTable from "../components/SkeletonTable";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { fetchCharacter, IArrayHeroes } from "../store/slices/heroSlices";
+import { fetchCharacter } from "../store/slices/heroSlices";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import type { RootState, AppDispatch } from "../store/store";
 
-interface IHeroList {
-  data: IArrayHeroes[];
-  count: number;
-  rowsPerPage: number;
-  page: number;
-  onPageChange: (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => void;
-}
-
-const HttpHeroComponent: React.FC<IHeroList> = () => {
+const HttpHeroComponent: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [page, setPage] = useState<number>(0);
   const rowsPerPage: number = 20;
@@ -32,8 +21,7 @@ const HttpHeroComponent: React.FC<IHeroList> = () => {
 
   useEffect(() => {
     dispatch(fetchCharacter(`character?page=${offSet / 20 + 1}`));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page]);
+  }, [dispatch, offSet, page]);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -64,11 +52,13 @@ const HttpHeroComponent: React.FC<IHeroList> = () => {
     <div className="Main-div">
       <div>
         <EnhancedTable
-          data={heroes}
-          count={info?.count as number}
+          data={heroes} // Передаем данные о героях
+          count={info?.count || 0} // Передаем количество героев или 0, если информация недоступна
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
+          handleClickOpen={() => {}} // Передаем пустую функцию или вашу логику для handleClickOpen
+          handleClose={() => {}} // Передаем пустую функцию или вашу логику для handleClosets
         />
       </div>
     </div>

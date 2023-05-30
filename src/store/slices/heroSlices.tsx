@@ -9,14 +9,6 @@ export interface IArrayHeroes {
   image?: string;
 }
 
-export interface IFetchState {
-  listOfChar: IArrayHeroes[];
-  pageInfo: IPageInfo | null;
-  hero: IArrayHeroes | null;
-  isLoading: boolean;
-  error: string | null;
-}
-
 export interface IPageInfo {
   count: number;
   pages: number;
@@ -25,12 +17,15 @@ export interface IPageInfo {
 interface ApiResponse {
   results: IArrayHeroes[];
   info: IPageInfo;
-  error: IError
 }
 
-// interface IError {
-//     message?: string
-//   }
+export interface IFetchState {
+  listOfChar: IArrayHeroes[];
+  pageInfo: IPageInfo | null;
+  hero: IArrayHeroes | null;
+  isLoading: boolean;
+  error: string | null;
+}
 
 const initialState: IFetchState = {
   listOfChar: [],
@@ -43,10 +38,12 @@ const initialState: IFetchState = {
 export const fetchCharacter = createAsyncThunk(
   "heroes/fetchCharacter",
   async (url: string) => {
-    const res: AxiosResponse = await axios(url);
-    const heroes = await res.data;
-    await new Promise((r) => setTimeout(r, 1000));
-    return heroes;
+    try {
+      const res: AxiosResponse = await axios(url);
+      const heroes = await res.data;
+      await new Promise((r) => setTimeout(r, 1000));
+      return heroes;
+    } catch (error) {}
   }
 );
 
@@ -68,10 +65,9 @@ export const heroSlice = createSlice({
     );
     builder.addCase(
       fetchCharacter.rejected,
-      (state, action: string | undefined) => {
+      (state, action: PayloadAction<any>) => {
         state.isLoading = false;
-        console.log('error', action.error)
-        state.error = action.error.message;
+        state.error = action.payload.message;
       }
     );
   },

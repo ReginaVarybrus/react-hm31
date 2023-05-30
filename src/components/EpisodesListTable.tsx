@@ -37,7 +37,7 @@ interface IPropsTable {
   count: number;
   rowsPerPage: number;
   page: number;
-  onPageChange: () => void;
+  onPageChange: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
 }
 
 const EpisodesEnhancedTable: FC<IPropsTable> = (props: IPropsTable) => {

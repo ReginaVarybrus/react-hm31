@@ -4,8 +4,6 @@ import axios, { AxiosResponse } from "axios";
 export interface IArrayEpisodes {
   id: number;
   name: string;
-  status?: string;
-  species?: string;
   air_date: number;
 }
 
@@ -14,16 +12,16 @@ export interface IPageInfo {
   pages: number;
 }
 
+interface ApiResponse {
+  results: IArrayEpisodes[];
+  info: IPageInfo;
+}
+
 export interface IFetchState {
   listOfEpisode: IArrayEpisodes[];
   pageInfo: IPageInfo | null;
   isLoading: boolean;
   error: string | null;
-}
-
-interface ApiResponse {
-  results: IArrayEpisodes[];
-  info: IPageInfo;
 }
 
 const initialState: IFetchState = {
@@ -36,10 +34,12 @@ const initialState: IFetchState = {
 export const fetchEpisode = createAsyncThunk(
   "episodes/fetchEpisode",
   async (url: string) => {
-    const res: AxiosResponse = await axios(url);
-    const episodes = await res.data;
-    await new Promise((r) => setTimeout(r, 1000));
-    return episodes;
+    try {
+      const res: AxiosResponse = await axios(url);
+      const episodes = await res.data;
+      await new Promise((r) => setTimeout(r, 1000));
+      return episodes;
+    } catch (error) {}
   }
 );
 
@@ -63,7 +63,7 @@ export const episodeSlice = createSlice({
       fetchEpisode.rejected,
       (state, action: PayloadAction<any>) => {
         state.isLoading = false;
-        state.error = action.error.message;
+        state.error = action.payload.message;
       }
     );
   },

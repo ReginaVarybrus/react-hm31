@@ -90,7 +90,10 @@ interface IPropsTable {
   page: number;
   handleClickOpen: () => void;
   handleClose: () => void;
-  onPageChange: () => void;
+  onPageChange: (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => void;
 }
 
 const EnhancedTable: FC<IPropsTable> = (props: IPropsTable) => {
@@ -172,7 +175,7 @@ const EnhancedTable: FC<IPropsTable> = (props: IPropsTable) => {
                           {selectedHero?.species}
                         </Typography>
                         <Box>
-                          <img src={selectedHero?.image}></img>
+                          <img alt="hero-img" src={selectedHero?.image}></img>
                         </Box>
                       </DialogContent>
                     </BootstrapDialog>
