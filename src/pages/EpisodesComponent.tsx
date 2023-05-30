@@ -2,25 +2,33 @@ import * as React from 'react';
 import { useState, useEffect } from "react";
 import EpisodesEnhancedTable from "../components/EpisodesListTable";
 import SkeletonTable from '../components/SkeletonTable';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchEpisode } from '../store/slices/rickAndMorty';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { fetchEpisode, IFetchState, IPageInfo } from '../store/slices/episodeSlices';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { RootState, AppDispatch } from '../store/store';
 
-const EpisodesComponent = () => {
-    const dispatch = useDispatch();
-    const [page, setPage] = useState(0);
-    const rowsPerPage = 20;
-    const offSet = page * rowsPerPage;
+const EpisodesComponent: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const [page, setPage] = useState<number>(0);
+    const rowsPerPage: number = 20;
+    const offSet: number = page * rowsPerPage;
 
-    const episodes = useSelector((state) => state.rickmorty.listOfEpisode)
-    const isLoading = useSelector((state) => state.rickmorty.isLoading)
+    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+    const episodes = useAppSelector((state) => state.episodes.listOfEpisode);
+    const info = useAppSelector((state) => state.episodes.pageInfo);
+    const isLoading = useAppSelector((state) => state.episodes.isLoading);
+
+    // const { episodes, info, isLoading } = useAppSelector(
+    //     (state: { episodes: IFetchState }) => state.episodes
+    //   );
 
     useEffect(() => {
         dispatch(fetchEpisode(`episode?page=${offSet / 20 + 1}`));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, page])
 
-    const handleChangePage = (event, newPage) => {
+    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number): void => {
         setPage(newPage);
     };
 
@@ -42,7 +50,7 @@ const EpisodesComponent = () => {
         <div>
             <EpisodesEnhancedTable
                 data={episodes}
-                count={episodes.info?.count}
+                count={info?.count as number}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage} />

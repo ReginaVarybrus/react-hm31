@@ -30,7 +30,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 // Зебра
 
-function SkeletonTable(props: number) {
+interface IPropsSkeleton {
+    rowsPerPage: number
+}
+
+function SkeletonTable(props: IPropsSkeleton) {
     return (
         <Box sx={{ width: 767, margin: 'auto' }}>
             <Paper sx={{ mb: 2, overflow: 'hidden' }}>

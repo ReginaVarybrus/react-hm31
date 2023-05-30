@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const HttpFetchHeroes = (url: string) => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);

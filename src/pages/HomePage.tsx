@@ -3,7 +3,7 @@
 import React, { FC } from "react";
 
 interface IHomepageInterfase {
-    text: string;
+    text: string,
     src: string
 }
 

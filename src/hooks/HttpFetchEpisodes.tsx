@@ -1,9 +1,11 @@
+// Done
+
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
 const HttpFetchEpisodes = (url: string) => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   
   useEffect(() => {
     setLoading(true);

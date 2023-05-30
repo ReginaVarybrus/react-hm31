@@ -1,3 +1,5 @@
+// Done
+
 import "./App.css";
 
 import HomePage from "./pages/HomePage";
@@ -13,7 +15,8 @@ function App() {
       <BrowserRouter>
         <Navigation />
         <Routes>
-          <Route path="/" element={<HomePage
+          <Route path="/" element={
+          <HomePage
             text={"Hello, TypeScript"}
             src={"https://user-images.githubusercontent.com/3335181/207145814-7b4fc81f-fb35-4e56-83d8-51e6419eb629.svg"}
           />} />

@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-
-import rickMortySlice from './slices/rickAndMorty';
+import heroes from './slices/heroSlices';
+import episodes from './slices/episodeSlices';
 
 export const store = configureStore({
   reducer: {
-    rickmorty: rickMortySlice
-  },
+    heroes: heroes,
+    episodes: episodes,
+  }
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
